@@ -16,7 +16,7 @@ func TestHome(t *testing.T) {
 		want: "Giorno Giovanna",
 	}
 
-	h := NewHomeHandler()
+	h := NewRouteHandler(MyHandler)
 	rr := httptest.NewRecorder()
 	r := httptest.NewRequest("GET", "/", nil)
 

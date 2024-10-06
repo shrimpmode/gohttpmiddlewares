@@ -6,28 +6,14 @@ import (
 	"time"
 )
 
-type HomeHandler struct {
-	Context *Context
-}
-
-func (h *HomeHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte(h.Context.User.Name))
-}
-
-func NewHomeHandler() *MiddlewareHandler {
-	h := &HomeHandler{
-		&Context{},
-	}
-	return &MiddlewareHandler{
-		Context: h.Context,
-		Handler: h,
-	}
+func HomeHandler(w http.ResponseWriter, r *http.Request, ctx *Context) {
+	w.Write([]byte(ctx.User.Name))
 }
 
 func main() {
 	mux := http.NewServeMux()
 
-	mux.Handle("/", NewHomeHandler())
+	mux.Handle("/", NewRouteHandler(HomeHandler))
 
 	s := &http.Server{
 		Addr:           ":8000",

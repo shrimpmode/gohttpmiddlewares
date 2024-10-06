@@ -21,6 +21,6 @@ func (m *AuthMiddleware) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if user == nil {
 		fmt.Println("Unauthorized User")
 	}
-	m.next.SetUser(user)
+	m.next.Context.SetUser(user)
 	m.next.Handler.ServeHTTP(w, r)
 }
